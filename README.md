@@ -13,10 +13,10 @@
 
 This is a small library that makes Angular Forms really reactive!
 
-- Reactive (and [type-safe][1]!) versions of `FormControl`, `FormGroup` and `FormArray`
+* Reactive (and [type-safe][1]!) versions of `FormControl`, `FormGroup` and `FormArray`
 * 100% compatible with `@angular/forms` and existing Angular libraries!
 * Additional read-only properties `value$`, `valid$`, `pristine$`, `error$`, `enabled$` and more.
-- Writable properties for `value$` and `disabled$`
+* Writable properties for `value$` and `disabled$`
 
 ### Why? 🤷‍♂️
 
@@ -128,8 +128,8 @@ The `UltraReactiveFormsModule` exports the `ReactiveFormsModule` from Angular.
 It also provides a special `[formControl]` directive that will detect the custom `FormControl`
 automatically subscribe/unsubscribe from its reactive properties.
 
-[1]: (https://github.com/dirkluijk/ngx-typesafe-forms)
-[2]: (https://github.com/dirkluijk/ngx-typesafe-forms#additional-reactive-properties)
+[1]: https://github.com/dirkluijk/ngx-typesafe-forms
+[2]: https://github.com/dirkluijk/ngx-typesafe-forms#additional-reactive-properties
 
 ## Contributors ✨
 
