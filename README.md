@@ -6,6 +6,7 @@
 [![NPM downloads](http://img.shields.io/npm/dm/ngx-ultra-reactive-forms.svg?style=flat-square)](https://www.npmjs.com/package/ngx-ultra-reactive-forms)
 [![Build status](https://img.shields.io/travis/dirkluijk/ngx-ultra-reactive-forms.svg?style=flat-square)](https://travis-ci.org/dirkluijk/ngx-ultra-reactive-forms)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![Tested with Spectator](https://img.shields.io/badge/Tested%20with%20Spectator-%09%E2%99%A5-blue)](https://github.com/ngneat/spectator)
 
 ## Overview
 
