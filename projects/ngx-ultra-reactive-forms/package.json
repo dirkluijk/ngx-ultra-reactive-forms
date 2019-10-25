@@ -1,6 +1,6 @@
 {
   "name": "ngx-ultra-reactive-forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Because Angular Forms are not really reactive",
   "author": "Dirk Luijk <mail@dirkluijk.nl>",
   "license": "MIT",
