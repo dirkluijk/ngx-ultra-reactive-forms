@@ -10,7 +10,7 @@ import { coerceToObservable, coerceToOptions } from './internals/coercion';
 import { Connectable } from './internals/connectable-control';
 
 export class FormControl<T> extends BaseFormControl<T> implements Connectable {
-  private inputStreams = {
+  private readonly inputStreams = {
     value$: EMPTY as Observable<T | null>,
     disabled$: of(false)
   };

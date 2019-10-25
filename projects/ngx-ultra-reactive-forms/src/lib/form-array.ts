@@ -11,7 +11,7 @@ import { coerceToObservable, coerceToOptions } from './internals/coercion';
 import { Connectable } from './internals/connectable-control';
 
 export class FormArray<T> extends BaseFormArray<T> implements Connectable {
-  private inputStreams = {
+  private readonly inputStreams = {
     value$: EMPTY as Observable<T[]>,
     disabled$: of(false)
   };
@@ -45,7 +45,7 @@ export class FormArray<T> extends BaseFormArray<T> implements Connectable {
 
   public connect(): void {
     this.subscriptions = [
-      this.inputStreams.value$.subscribe((value) => value !== null ? this.setValue(value) : this.reset()),
+      this.inputStreams.value$.subscribe((value: null | T[]) => value !== null ? this.setValue(value) : this.reset()),
       this.inputStreams.disabled$.subscribe((disabled) => this.setDisabled(disabled))
     ];
 

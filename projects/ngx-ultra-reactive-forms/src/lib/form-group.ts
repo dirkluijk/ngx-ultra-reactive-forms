@@ -11,7 +11,7 @@ import { AbstractControlOptions } from './internals/abstract-control-options';
 import { coerceToObservable, coerceToOptions } from './internals/coercion';
 
 export class FormGroup<T> extends BaseFormGroup<T> implements Connectable {
-  private inputStreams = {
+  private readonly inputStreams = {
     value$: EMPTY as Observable<T | null>,
     disabled$: of(false)
   };
