@@ -1,0 +1,13 @@
+{
+  "name": "ngx-ultra-reactive-forms",
+  "version": "0.0.0",
+  "description": "Because Angular Forms are not really reactive",
+  "author": "Dirk Luijk <mail@dirkluijk.nl>",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "@angular/forms": "^8.0.0",
+    "rxjs": "^6.0.0",
+    "ngx-typesafe-forms": "0.0.4"
+  }
+}
