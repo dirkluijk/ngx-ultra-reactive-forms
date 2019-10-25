@@ -16,7 +16,7 @@ This is a small library that makes Angular Forms really reactive!
 * Reactive (and [type-safe][1]!) versions of `FormControl`, `FormGroup` and `FormArray`
 * 100% compatible with `@angular/forms` and existing Angular libraries!
 * Additional read-only properties `value$`, `valid$`, `pristine$`, `error$`, `enabled$` and more.
-* Writable properties for `value$` and `disabled$`
+* Methods for `setValue$` and `setDisabled$`
 
 ### Why? 🤷‍♂️
 
@@ -46,9 +46,9 @@ With this library, this code can simply be written as:
 
 ```typescript
 const formControl = new FormControl(yourValue$);
-const otherControl = new FormControl();
-
-formControl.disabled$ = otherControl.invalid$;
+const otherControl = new FormControl('', {
+  disabled$: otherControl.invalid$
+});
 ```
 
 ## Installation 🌩
@@ -94,8 +94,8 @@ class YourComponent {
   constructor(private myService: MyService) {}
   
   ngOnInit(): void {
-    this.myControl.value$ = this.myService.someObservableString();
-    this.myFormGroup.value$ = this.myService.someObservablePerson();
+    this.myControl.setValue$(this.myService.someObservableString());
+    this.myFormGroup.setValue$(this.myService.someObservablePerson());
     
     this.formGroupValid$ = this.myFormGroup.valid$;
   }

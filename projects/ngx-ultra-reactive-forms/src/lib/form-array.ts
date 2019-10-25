@@ -11,16 +11,6 @@ import { coerceToObservable, coerceToOptions } from './internals/coercion';
 import { Connectable } from './internals/connectable-control';
 
 export class FormArray<T> extends BaseFormArray<T> implements Connectable {
-  public set value$(value$: Observable<T[]>) {
-    this.inputStreams.value$ = value$;
-    this.reconnectIfConnected();
-  }
-
-  public set disabled$(disabled$: Observable<boolean>) {
-    this.inputStreams.disabled$ = disabled$;
-    this.reconnectIfConnected();
-  }
-
   private inputStreams = {
     value$: EMPTY as Observable<T[]>,
     disabled$: of(false)
@@ -39,13 +29,23 @@ export class FormArray<T> extends BaseFormArray<T> implements Connectable {
     const options = coerceToOptions(validatorOrOpts);
 
     if (options && options.disabled$ !== undefined) {
-      this.disabled$ = coerceToObservable(options.disabled$);
+      this.setDisabled$(coerceToObservable(options.disabled$));
     }
+  }
+
+  public setValue$(value$: Observable<T[]>): void {
+    this.inputStreams.value$ = value$;
+    this.reconnectIfConnected();
+  }
+
+  public setDisabled$(disabled$: Observable<boolean>): void {
+    this.inputStreams.disabled$ = disabled$;
+    this.reconnectIfConnected();
   }
 
   public connect(): void {
     this.subscriptions = [
-      this.inputStreams.value$.subscribe((value) => this.setValue(value)),
+      this.inputStreams.value$.subscribe((value) => value !== null ? this.setValue(value) : this.reset()),
       this.inputStreams.disabled$.subscribe((disabled) => this.setDisabled(disabled))
     ];
 
