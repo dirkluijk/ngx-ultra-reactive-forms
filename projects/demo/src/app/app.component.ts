@@ -12,7 +12,7 @@ export class AppComponent {
   public formControl1 = new FormControl('foo');
 
   public formControl2 = new FormControl(this.formControl1.value$, {
-      disabled$: this.formControl1.value$.pipe(map((value) => value!.length > 5))
+      disabled$: this.formControl1.value$.pipe(map((value) => value.length > 5))
     }
   );
 }
