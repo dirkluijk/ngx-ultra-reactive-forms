@@ -1,1 +1,9 @@
-<h1>Sample app</h1>
+<h1>Ultra-reactive forms (demo)</h1>
+
+<input type="text" [formControl]="formControl1">
+
+<pre>{{ formControl1.value | json }}</pre>
+
+<input type="text" [formControl]="formControl2">
+
+<pre>{{ formControl2.value | json }}</pre>
