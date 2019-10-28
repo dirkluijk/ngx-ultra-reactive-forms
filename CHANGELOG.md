@@ -17,7 +17,3 @@ All notable changes to this project will be documented in this file. See [standa
 * changed value$/disabled$ setters to methods ([3ac43ef](https://github.com/dirkluijk/ngx-ultra-reactive-forms/commit/3ac43ef033083df65ff8328dde2537c7dca6056d))
 
 ### 0.0.1 (2019-10-25)
-
-# Changelog
-
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
