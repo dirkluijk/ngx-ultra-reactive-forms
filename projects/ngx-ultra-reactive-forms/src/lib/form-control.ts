@@ -4,6 +4,7 @@ import {
   ValidatorFn
 } from 'ngx-typesafe-forms';
 import { EMPTY, isObservable, Observable, of, Subscription } from 'rxjs';
+import { isDevMode } from '@angular/core';
 
 import { AbstractControlOptions } from './internals/abstract-control-options';
 import { coerceToObservable, coerceToOptions } from './internals/coercion';
@@ -61,6 +62,18 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
 
   public disconnect(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  public registerOnChange(fn: (_: T) => void): void {
+    if (!this.connected && isDevMode()) {
+      // tslint:disable-next-line:no-console
+      console.warn(
+        'It looks like you are using a FormControl from ngx-ultra-reactive-forms without importing its ReactiveFormsModule. ' +
+        'Please import it to make use of its reactive FormControl directive.'
+      );
+    }
+
+    super.registerOnChange(fn);
   }
 
   private reconnectIfConnected(): void {
