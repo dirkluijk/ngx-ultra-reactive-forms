@@ -3,7 +3,7 @@ import {
   FormControl as BaseFormControl,
   ValidatorFn
 } from 'ngx-typesafe-forms';
-import { EMPTY, Observable, of, Subscription } from 'rxjs';
+import { EMPTY, isObservable, Observable, of, Subscription } from 'rxjs';
 
 import { AbstractControlOptions } from './internals/abstract-control-options';
 import { coerceToObservable, coerceToOptions } from './internals/coercion';
@@ -27,7 +27,11 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
 
     const options = coerceToOptions(validatorOrOpts);
 
-    if (formValue) {
+    if (formValue !== undefined) {
+      if (!isObservable(formValue)) {
+        this.setValue(formValue);
+      }
+
       this.setValue$(coerceToObservable(formValue));
     }
 
