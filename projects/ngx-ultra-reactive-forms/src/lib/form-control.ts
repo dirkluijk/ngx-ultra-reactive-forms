@@ -3,17 +3,17 @@ import {
   FormControl as BaseFormControl,
   ValidatorFn
 } from 'ngx-typesafe-forms';
-import { EMPTY, isObservable, Observable, of, Subscription } from 'rxjs';
+import { EMPTY, isObservable, Observable, Subscription } from 'rxjs';
 import { isDevMode } from '@angular/core';
 
 import { AbstractControlOptions } from './internals/abstract-control-options';
-import { coerceToObservable, coerceToOptions } from './internals/coercion';
+import { coerceToOptions } from './internals/coercion';
 import { Connectable } from './internals/connectable-control';
 
 export class FormControl<T> extends BaseFormControl<T> implements Connectable {
   private readonly inputStreams = {
     value$: EMPTY as Observable<T | null>,
-    disabled$: of(false)
+    disabled$: EMPTY as Observable<boolean>
   };
 
   private subscriptions: Subscription[] = [];
@@ -29,15 +29,19 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
     const options = coerceToOptions(validatorOrOpts);
 
     if (formValue !== undefined) {
-      if (!isObservable(formValue)) {
-        this.setValue(formValue);
+      if (isObservable(formValue)) {
+        this.setValue$(formValue);
+      } else {
+        this.setValue(formValue, { emitEvent: false });
       }
-
-      this.setValue$(coerceToObservable(formValue));
     }
 
     if (options && options.disabled$ !== undefined) {
-      this.setDisabled$(coerceToObservable(options.disabled$));
+      if (isObservable(options.disabled$)) {
+        this.setDisabled$(options.disabled$);
+      } else if (!options.disabled$) {
+        this.disable({ emitEvent: false });
+      }
     }
   }
 

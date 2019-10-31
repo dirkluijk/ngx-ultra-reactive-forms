@@ -4,16 +4,16 @@ import {
   FormGroup as BaseFormGroup,
   ValidatorFn
 } from 'ngx-typesafe-forms';
-import { EMPTY, Observable, of, Subscription } from 'rxjs';
+import { EMPTY, isObservable, Observable, Subscription } from 'rxjs';
 
 import { Connectable } from './internals/connectable-control';
 import { AbstractControlOptions } from './internals/abstract-control-options';
-import { coerceToObservable, coerceToOptions } from './internals/coercion';
+import { coerceToOptions } from './internals/coercion';
 
 export class FormGroup<T> extends BaseFormGroup<T> implements Connectable {
   private readonly inputStreams = {
     value$: EMPTY as Observable<T | null>,
-    disabled$: of(false)
+    disabled$: EMPTY as Observable<boolean>
   };
 
   private subscriptions: Subscription[] = [];
@@ -29,7 +29,11 @@ export class FormGroup<T> extends BaseFormGroup<T> implements Connectable {
     const options = coerceToOptions(validatorOrOpts);
 
     if (options && options.disabled$ !== undefined) {
-      this.setDisabled$(coerceToObservable(options.disabled$));
+      if (isObservable(options.disabled$)) {
+        this.setDisabled$(options.disabled$);
+      } else if (!options.disabled$) {
+        this.disable({ emitEvent: false });
+      }
     }
   }
 
