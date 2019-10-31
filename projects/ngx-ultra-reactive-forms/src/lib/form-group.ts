@@ -48,15 +48,17 @@ export class FormGroup<T> extends BaseFormGroup<T> implements Connectable {
   }
 
   public connect(): void {
+    this.connected = true;
+
     this.subscriptions = [
       this.inputStreams.value$.subscribe((value) => value !== null ? this.setValue(value) : this.reset()),
       this.inputStreams.disabled$.subscribe((disabled) => this.setDisabled(disabled))
     ];
-
-    this.connected = true;
   }
 
   public disconnect(): void {
+    this.connected = false;
+
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
