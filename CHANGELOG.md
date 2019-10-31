@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/dirkluijk/ngx-ultra-reactive-forms/compare/v0.0.3...v0.0.4) (2019-10-31)
+
+
+### Features
+
+* **form-control:** show warning when module has not been imported ([ac6b36d](https://github.com/dirkluijk/ngx-ultra-reactive-forms/commit/ac6b36dde6165a3b5abe2e8e042c3c5be00312a7))
+
+
+### Bug Fixes
+
+* add delay in directive detection warning ([385eee2](https://github.com/dirkluijk/ngx-ultra-reactive-forms/commit/385eee2a39dfe879e0edbab5c4879eab822f98f1))
+* prevent emitting values at initializing controls ([38cb7f0](https://github.com/dirkluijk/ngx-ultra-reactive-forms/commit/38cb7f0e3979ef80f70b6219eae77309a0e7e357))
+
 ### [0.0.3](https://github.com/dirkluijk/ngx-ultra-reactive-forms/compare/v0.0.2...v0.0.3) (2019-10-28)
 
 
