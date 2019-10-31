@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/dirkluijk/ngx-ultra-reactive-forms/compare/v0.0.4...v0.0.5) (2019-10-31)
+
+
+### Bug Fixes
+
+* improve connected state ([7685a72](https://github.com/dirkluijk/ngx-ultra-reactive-forms/commit/7685a72ef09f34c0d710b20d25b022178555a4af))
+
 ### [0.0.4](https://github.com/dirkluijk/ngx-ultra-reactive-forms/compare/v0.0.3...v0.0.4) (2019-10-31)
 
 
