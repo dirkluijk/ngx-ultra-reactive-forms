@@ -69,13 +69,7 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
   }
 
   public registerOnChange(fn: (_: T) => void): void {
-    if (!this.connected && isDevMode()) {
-      // tslint:disable-next-line:no-console
-      console.warn(
-        'It looks like you are using a FormControl from ngx-ultra-reactive-forms without importing its ReactiveFormsModule. ' +
-        'Please import it to make use of its reactive FormControl directive.'
-      );
-    }
+    setTimeout(() => this.throwWarningIfNotConnected());
 
     super.registerOnChange(fn);
   }
@@ -87,5 +81,15 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
 
     this.disconnect();
     this.connect();
+  }
+
+  private throwWarningIfNotConnected(): void {
+    if (!this.connected && isDevMode()) {
+      // tslint:disable-next-line:no-console
+      console.warn(
+        'It looks like you are using a FormControl from ngx-ultra-reactive-forms without importing its ReactiveFormsModule. ' +
+        'Please import it to make use of its reactive FormControl directive.'
+      );
+    }
   }
 }
