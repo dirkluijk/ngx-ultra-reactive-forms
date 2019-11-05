@@ -39,7 +39,7 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
     if (options && options.disabled$ !== undefined) {
       if (isObservable(options.disabled$)) {
         this.setDisabled$(options.disabled$);
-      } else if (!options.disabled$) {
+      } else if (options.disabled$) {
         this.disable({ emitEvent: false });
       }
     }

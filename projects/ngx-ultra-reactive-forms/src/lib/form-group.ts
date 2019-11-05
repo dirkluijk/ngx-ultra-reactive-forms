@@ -31,7 +31,7 @@ export class FormGroup<T> extends BaseFormGroup<T> implements Connectable {
     if (options && options.disabled$ !== undefined) {
       if (isObservable(options.disabled$)) {
         this.setDisabled$(options.disabled$);
-      } else if (!options.disabled$) {
+      } else if (options.disabled$) {
         this.disable({ emitEvent: false });
       }
     }
