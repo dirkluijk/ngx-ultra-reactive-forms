@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/dirkluijk/ngx-ultra-reactive-forms/compare/v0.0.5...v0.0.6) (2019-11-05)
+
+
+### Bug Fixes
+
+* correct disable when passed as boolean ([3052ad1](https://github.com/dirkluijk/ngx-ultra-reactive-forms/commit/3052ad199672423ab54162c875e47e2e3ebdb0f9))
+
 ### [0.0.5](https://github.com/dirkluijk/ngx-ultra-reactive-forms/compare/v0.0.4...v0.0.5) (2019-10-31)
 
 
