@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/dirkluijk/ngx-ultra-reactive-forms/compare/v0.0.6...v0.0.7) (2020-01-22)
+
+
+### Features
+
+* add options for value$ streams ([559a18a](https://github.com/dirkluijk/ngx-ultra-reactive-forms/commit/559a18ad2ef3306bc90481ffe01cffa4274ae305))
+
 ### [0.0.6](https://github.com/dirkluijk/ngx-ultra-reactive-forms/compare/v0.0.5...v0.0.6) (2019-11-05)
 
 
