@@ -10,9 +10,17 @@ import { AbstractControlOptions } from './internals/abstract-control-options';
 import { coerceToOptions } from './internals/coercion';
 import { Connectable } from './internals/connectable-control';
 
+interface SetValueOptions {
+  onlySelf?: boolean;
+  emitEvent?: boolean;
+  emitModelToViewChange?: boolean;
+  emitViewToModelChange?: boolean;
+}
+
 export class FormControl<T> extends BaseFormControl<T> implements Connectable {
   private readonly inputStreams = {
     value$: EMPTY as Observable<T | null>,
+    valueOptions: undefined as SetValueOptions | undefined,
     disabled$: EMPTY as Observable<boolean>
   };
 
@@ -22,7 +30,8 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
   constructor(
     formValue?: T | Observable<T>,
     validatorOrOpts?: ValidatorFn<T> | ValidatorFn<T>[] | AbstractControlOptions<T> | null,
-    asyncValidator?: AsyncValidatorFn<T> | AsyncValidatorFn<T>[] | null
+    asyncValidator?: AsyncValidatorFn<T> | AsyncValidatorFn<T>[] | null,
+    setValueOptions?: SetValueOptions
   ) {
     super(undefined, validatorOrOpts, asyncValidator);
 
@@ -30,7 +39,7 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
 
     if (formValue !== undefined) {
       if (isObservable(formValue)) {
-        this.setValue$(formValue);
+        this.setValue$(formValue, setValueOptions);
       } else {
         this.setValue(formValue, { emitEvent: false });
       }
@@ -45,8 +54,9 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
     }
   }
 
-  public setValue$(value$: Observable<T | null>): void {
+  public setValue$(value$: Observable<T | null>, options?: SetValueOptions): void {
     this.inputStreams.value$ = value$;
+    this.inputStreams.valueOptions = options;
     this.reconnectIfConnected();
   }
 
@@ -59,7 +69,13 @@ export class FormControl<T> extends BaseFormControl<T> implements Connectable {
     this.connected = true;
 
     this.subscriptions = [
-      this.inputStreams.value$.subscribe((value) => value !== null ? this.setValue(value) : this.reset()),
+      this.inputStreams.value$.subscribe((value) => {
+        if (value !== null) {
+          this.setValue(value, this.inputStreams.valueOptions);
+        } else {
+          this.reset(undefined, this.inputStreams.valueOptions);
+        }
+      }),
       this.inputStreams.disabled$.subscribe((disabled) => this.setDisabled(disabled))
     ];
   }

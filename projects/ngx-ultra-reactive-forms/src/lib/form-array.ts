@@ -10,9 +10,15 @@ import { AbstractControlOptions } from './internals/abstract-control-options';
 import { coerceToOptions } from './internals/coercion';
 import { Connectable } from './internals/connectable-control';
 
+interface SetValueOptions {
+  onlySelf?: boolean;
+  emitEvent?: boolean;
+}
+
 export class FormArray<T> extends BaseFormArray<T> implements Connectable {
   private readonly inputStreams = {
     value$: EMPTY as Observable<T[]>,
+    valueOptions: undefined as SetValueOptions | undefined,
     disabled$: EMPTY as Observable<boolean>
   };
 
@@ -37,8 +43,9 @@ export class FormArray<T> extends BaseFormArray<T> implements Connectable {
     }
   }
 
-  public setValue$(value$: Observable<T[]>): void {
+  public setValue$(value$: Observable<T[]>, options?: SetValueOptions): void {
     this.inputStreams.value$ = value$;
+    this.inputStreams.valueOptions = options;
     this.reconnectIfConnected();
   }
 
@@ -51,7 +58,13 @@ export class FormArray<T> extends BaseFormArray<T> implements Connectable {
     this.connected = true;
 
     this.subscriptions = [
-      this.inputStreams.value$.subscribe((value: null | T[]) => value !== null ? this.setValue(value) : this.reset()),
+      this.inputStreams.value$.subscribe((value: null | T[]) => {
+        if (value !== null) {
+          this.setValue(value, this.inputStreams.valueOptions);
+        } else {
+          this.reset(undefined, this.inputStreams.valueOptions);
+        }
+      }),
       this.inputStreams.disabled$.subscribe((disabled) => this.setDisabled(disabled))
     ];
   }
